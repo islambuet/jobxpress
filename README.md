@@ -12,3 +12,7 @@
 3.setup .env file SESSION_DRIVER=database
 4.php artisan session:table
 5.php artisan migrate
+
+#livewire
+6.composer require livewire/livewire
+7.php artisan make:livewire HomeComponent (rename view file and folder locaiton)
