@@ -21,3 +21,6 @@
 8.3. php artisan make:model Configuration -m
 8.4. php artisan make:model Job -m 
 8.5. php artisan migrate
+
+9.1. php artisan make:seeder JobSeeder   
+9.2. php artisan db:seed --class=JobSeeder
