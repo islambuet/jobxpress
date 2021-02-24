@@ -36,6 +36,10 @@ class JobController extends Controller
         $data['email']=$request->email;
         $data['company']=$request->company;
         $data['position']=$request->position;
+        if($request->logo_url)
+        {
+            $data['logo_url']=$request->logo_url;            
+        }
         $data['location']=$request->location;
         $data['description']=$request->description;
         $data['token']=EncryptDecryptHelper::getJobToken();
