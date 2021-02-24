@@ -7,12 +7,29 @@ use Illuminate\Support\Facades\Validator;
 
 use App\HelperClasses\ConfigurationHelper;
 use App\HelperClasses\EncryptDecryptHelper;
+use App\HelperClasses\JobHelper;
 
 use App\Models\Job;
 
 use Carbon\Carbon;
 class JobController extends Controller
 {
+    //default get active categories
+    //status==[Active,All,In-Active]
+    public function getJobsCategories(Request $request)
+    {
+        $status=$request->status?$request->status:"Active";        
+        response()->json([
+            'errorStr'=>'',
+            'datas' => JobHelper::getJobCategories($status)],201)->send();
+    }
+    //additional perpage,page no
+    public function getJobsByCagegoryId($categoryId,Request $request)
+    {
+        response()->json([
+            'errorStr'=>'',
+            'jobs' => $request->page_per],201)->send();
+    }
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [

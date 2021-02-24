@@ -17,4 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('job-categories', [App\Http\Controllers\JobController::class,'getJobsCategories']);
+Route::get('jobs/{categoryId}', [App\Http\Controllers\JobController::class,'getJobsByCagegoryId']);
 Route::post('job/create', [App\Http\Controllers\JobController::class,'create']);
