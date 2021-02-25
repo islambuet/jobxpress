@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('job-categories', [App\Http\Controllers\JobController::class,'getJobsCategories']);
-Route::get('jobs/{categoryId}', [App\Http\Controllers\JobController::class,'getJobsByCagegoryId']);
+Route::get('jobs/latest', [App\Http\Controllers\JobController::class,'getLastestJobs']);
+Route::get('jobs/{categoryId}', [App\Http\Controllers\JobController::class,'getJobsByCagegoryId'])->where('categoryId', '[0-9]+');;
 Route::post('job/create', [App\Http\Controllers\JobController::class,'create']);

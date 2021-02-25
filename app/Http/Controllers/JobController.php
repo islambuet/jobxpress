@@ -13,8 +13,7 @@ use App\Models\Job;
 
 use Carbon\Carbon;
 class JobController extends Controller
-{
-    //default get active categories
+{    
     //status==[Active,All,In-Active]
     public function getJobsCategories(Request $request)
     {
@@ -22,6 +21,14 @@ class JobController extends Controller
         response()->json([
             'errorStr'=>'',
             'datas' => JobHelper::getJobCategories($status)],201)->send();
+    }
+    //total==number of latest jobs
+    public function getLastestJobs(Request $request)
+    {
+        $total=$request->total?$request->total:10;    
+        response()->json([
+            'errorStr'=>'',
+            'datas' => JobHelper::getLastestJobs($total)],201)->send();    
     }
     //additional perpage,page no
     public function getJobsByCagegoryId($categoryId,Request $request)

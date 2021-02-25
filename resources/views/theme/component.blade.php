@@ -31,7 +31,7 @@
             <!-- LOGO -->
             <h3>JobXpress</h3>
             <div class="row">
-                <form action="{{ url('/search-job') }}" method="POST" class="col-md-6 col-8">
+                <form action="{{ url('/search-job') }}" method="POST" class="col-md-6 col-7">
                     @csrf
                     <div class="input-group">
                         <input type="text" name="serachJob" class="form-control" placeholder="Search..">
@@ -40,7 +40,7 @@
                         </div>
                       </div>
                 </form>
-                <div class="col-md-6 col-4">
+                <div class="col-md-6 col-5">
                     <a href="{{ url('/post-job') }}" class="btn btn-primary float-right">Post a Job</a>
                 </div>
                 

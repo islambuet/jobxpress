@@ -12,12 +12,13 @@ a:focus {
 ----------------------------------------------------- */
 #system_top_bar {
     
-    padding: 10px 50px;
+    padding: 10px 10px;
     position: fixed;
     left: 0;
     right: 0;
     height: 100px;
     z-index: 1000;
+    background-color: #FFFFFF;
 }
 #system_top_bar ul >li {
     float: left;
@@ -35,7 +36,7 @@ a:focus {
     CONTENT STYLE
 ----------------------------------------------------- */
 #system_content{
-    padding: 100px 50px;
+    padding: 100px 10px;
     transition: all 0.3s;
 }
 @media (min-width:1200px)
