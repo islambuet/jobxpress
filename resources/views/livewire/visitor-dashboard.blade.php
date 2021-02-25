@@ -7,7 +7,7 @@
         </div>
         @if (count($category['jobs'])>0)
         <div class="col-12">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped">
                 <thead class="thead-light">
                 <tr>                    
                     <th style="width: 150px;">Location</th>

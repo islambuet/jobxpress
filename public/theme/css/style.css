@@ -46,3 +46,10 @@ a:focus {
         margin: auto;
     }
 }
+
+.table-striped tbody tr:nth-of-type(2n) {
+    background-color: rgba(0,0,0,.05);
+}
+.table-striped tbody tr:nth-of-type(2n+1) {
+    background-color: #FFFFFF;
+}
