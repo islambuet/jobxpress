@@ -33,9 +33,12 @@ class JobController extends Controller
     //additional perpage,page no
     public function getJobsByCagegoryId($categoryId,Request $request)
     {
+        $page=$request->page?$request->page:1;
+        $per_page=$request->per_page?$request->per_page:20;
+        $paginator=JobHelper::getJobsByCagegoryId($categoryId,$page,$per_page);
         response()->json([
             'errorStr'=>'',
-            'jobs' => $request->page_per],201)->send();
+            'data' => ['total'=>$paginator->total(),'currentPage'=>$paginator->currentPage(),'perPage'=>$paginator->perPage(),'jobs'=>$paginator->items()]],201)->send();
     }
     public function create(Request $request)
     {
