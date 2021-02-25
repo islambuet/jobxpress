@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', App\Http\Livewire\HomeComponent::class);
+Route::get('jobs/{categoryId}', App\Http\Livewire\JobsByCategoryComponent::class)->where('categoryId', '[0-9]+');
 

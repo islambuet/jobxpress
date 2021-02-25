@@ -6,6 +6,20 @@
     use Carbon\Carbon;
     class JobHelper
     {
+        public static function getJobCategory($id)
+        {
+            $query=JobCategory::select('id','name')                           
+            ->where('status','!=','Deleted')
+            ->where('id',$id)  ;
+            
+            $category=$query->first();
+            if($category)
+            {
+                return $category->toArray();
+            }
+            return array();
+            
+        }
         
         public static function getJobCategories($status='Active')
         {
@@ -55,6 +69,7 @@
             ->join('job_types as jt', 'jt.id', '=', 'jobs.job_type_id')
             ->addSelect('jt.name as type_name')
             ->orderBy('jobs.id', 'desc')
+            ->where('jobs.job_category_id', '=',$categoryId)
             ->where('jobs.expired_at','>' ,Carbon::now());                     
             $jobs=$query->paginate($per_page,['*'],'page',$page);
             if($jobs)

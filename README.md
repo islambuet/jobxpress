@@ -24,3 +24,4 @@
 
 9.1. php artisan make:seeder JobSeeder   
 9.2. php artisan db:seed --class=JobSeeder
+10. php artisan vendor:publish --tag=laravel-pagination //for pagination view 
