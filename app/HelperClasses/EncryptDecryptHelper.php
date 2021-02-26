@@ -21,7 +21,7 @@
         }
         public static function getJobToken()
         {
-            return self::getEncrypt(time().'_'.Str::random(30));
+            return (time().'_'.Str::random(30));
         }
     }
     
