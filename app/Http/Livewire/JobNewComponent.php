@@ -23,6 +23,7 @@ class JobNewComponent extends Component
     public $description='';
     public $picture=null;
     public $temporary_image=null;
+    public $jobId=0;
     protected $rules = [
         'job_category_id' => 'required',        
         'job_type_id' => 'required',        
@@ -32,8 +33,30 @@ class JobNewComponent extends Component
         'location' => 'required|min:3|max:255',        
         'description' => 'required|min:5',        
     ];
-    public function mount()
+    public function mount($id=0,$token='')
     {
+        $this->jobId=$id;
+        if($id>0)
+        {
+            if(!$token)
+            {
+                return abort(404);                
+            }            $job=JobHelper::getJobById($id,urldecode($token));
+            if(!$job)
+            {
+                return abort(404);                
+            }
+            else
+            {
+                $this->job_category_id=$job->job_category_id;
+                $this->job_type_id=$job->job_type_id;
+                $this->email=$job->email;
+                $this->company=$job->company;
+                $this->position=$job->position;
+                $this->location=$job->location;
+                $this->description=$job->description;                
+            }
+        }
         $this->categories=JobHelper::getJobCategories('Active');
         $this->types=JobHelper::getJobTypes('Active');
     }
@@ -76,12 +99,28 @@ class JobNewComponent extends Component
         $data['position']=$this->position;
         $data['location']=$this->location;
         $data['description']=$this->description;
-        $job=JobHelper::createJob($data);
-        $message='Job Crated Succssfully.<br>';
-        $message.='Job Id'.$job->id.'<br>';
-        session()->flash('alert_message',$message);
-        session()->flash('alert_type',"danger");
-        return redirect('/');
+        if($this->jobId > 0)
+        {
+            $jobUpdated=JobHelper::updateJob($this->jobId,$data);            
+            $update_url=url('/job/update/'.$jobUpdated->id.'/'.urlencode($jobUpdated->token));
+            $message='Job Updated Succssfully.<br>';
+            $message.='Job Id :'.$jobUpdated->id.'<br>';
+            $message.='New Update Url :'.' <a href="'.$update_url.'" target="_blank">'.$update_url.'</a> ';
+            session()->flash('alert_message',$message);
+            session()->flash('alert_type',"success");
+            return redirect('/job/details/'.$jobUpdated->id);
+        }
+        else
+        {
+            $job=JobHelper::createJob($data);
+            $update_url=url('/job/update/'.$job->id.'/'.urlencode($job->token));
+            $message='Job Created Succssfully.<br>';
+            $message.='Job Id :'.$job->id.'<br>';
+            $message.='Update Url :'.' <a href="'.$update_url.'" target="_blank">'.$update_url.'</a> ';
+            session()->flash('alert_message',$message);
+            session()->flash('alert_type',"success");
+            return redirect('/job/details/'.$job->id);
+        }
         
         
         //print_r($validatedData);

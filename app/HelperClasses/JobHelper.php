@@ -107,10 +107,11 @@
             $job=Job::create($data);
             return $job;
         }
-        public static function getJobById($id)
+        //optional token
+        public static function getJobById($id,$token='')
         {
             $query=DB::table('jobs')
-            ->select('jobs.id','jobs.job_category_id','jobs.job_type_id','jobs.company','jobs.position','jobs.location','jobs.logo_url','jobs.description')
+            ->select('jobs.id','jobs.job_category_id','jobs.job_type_id','jobs.company','jobs.position','jobs.location','jobs.logo_url','jobs.description','jobs.email')
             ->where('jobs.status','!=','Deleted') 
             ->join('job_categories as jc', 'jc.id', '=', 'jobs.job_category_id')
             ->addSelect('jc.name as category_name')
@@ -118,6 +119,10 @@
             ->addSelect('jt.name as type_name')
             ->orderBy('jobs.id', 'desc')
             ->where('jobs.id','=' ,$id);
+            if($token)
+            {
+                $query->where('jobs.token','=',$token);
+            }
             
             $job=$query->first();
             if($job)
@@ -126,6 +131,16 @@
             }
             return array();
             
+        }
+        public static function updateJob($id,$data)
+        {
+            $expireDays=ConfigurationHelper::getJobExpireDays();
+            $data['token']=EncryptDecryptHelper::getJobToken();
+            //$data['expired_at']=Carbon::now()->addDays($expireDays);
+            //$job=Job::create($data);
+            $job=Job::find($id);
+            $job->update($data);
+            return $job;
         }
 
         

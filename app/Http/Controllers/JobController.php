@@ -70,6 +70,7 @@ class JobController extends Controller
         $data['location']=$request->location;
         $data['description']=$request->description;
         $job=JobHelper::createJob($data);
+        $job->update_url=url('/job/update/'.$job->id.'/'.urlencode($job->token));
 
         response()->json([
             'errorStr'=>'',
@@ -84,6 +85,83 @@ class JobController extends Controller
             response()->json([
                 'errorStr'=>'',
                 'data' => ['data'=>$job]],201)->send();
+        }
+        else
+        {
+            response()->json([
+                'errorStr'=>'NOT_FOUND',
+                'data' => ['data'=>$job]],404)->send();
+        }
+        
+    }
+    public function getJobByIdToken($id,$token,Request $request)
+    {
+        if(!$token)
+        {
+            response()->json([
+                'errorStr'=>'NOT_FOUND',
+                'data' => ['data'=>$job]],404)->send();
+        }
+        $job=JobHelper::getJobById($id,$token);
+        if($job)
+        {
+            response()->json([
+                'errorStr'=>'',
+                'data' => ['data'=>$job]],201)->send();
+        }
+        else
+        {
+            response()->json([
+                'errorStr'=>'NOT_FOUND',
+                'data' => ['data'=>$job]],404)->send();
+        }
+        
+    }
+    public function updateJobByIdToken($id,$token,Request $request)
+    {
+        if(!$token)
+        {
+            response()->json([
+                'errorStr'=>'NOT_FOUND',
+                'data' => ['data'=>$job]],404)->send();
+        }
+        $job=JobHelper::getJobById($id,$token);
+        if($job)
+        {
+            $validator = Validator::make($request->all(), [
+                'job_category_id' => ['required', 'exists:job_categories,id'],
+                'job_type_id' => ['required', 'exists:job_types,id'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'company' => ['required', 'string', 'max:255','min:3'],
+                'logo_url' => ['string', 'max:500','url'],
+                'position' => ['required', 'string', 'max:255','min:3'],
+                'location' => ['required', 'string', 'max:255','min:3'],
+                'description' => ['required', 'string', 'min:5'],
+                
+            ]);
+            if ($validator->fails()) {         
+                return response()->json(['errorStr' => 'VALIDATION_FAILED','errors' => $validator->errors()], 400);                 
+            }
+            
+            $data=array();
+            $data['job_category_id']=$request->job_category_id;
+            $data['job_type_id']=$request->job_type_id;
+            $data['email']=$request->email;
+            $data['company']=$request->company;
+            $data['position']=$request->position;
+            if($request->logo_url)
+            {
+                $data['logo_url']=$request->logo_url;            
+            }
+            $data['location']=$request->location;
+            $data['description']=$request->description;
+            $jobUpdated=JobHelper::updateJob($id,$data);
+            $jobUpdated->update_url=url('/job/update/'.$jobUpdated->id.'/'.urlencode($jobUpdated->token));
+
+            response()->json([
+                'errorStr'=>'',
+                'job' => $jobUpdated->toArray()],201)->send();
+            
         }
         else
         {
