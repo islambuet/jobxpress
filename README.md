@@ -25,3 +25,9 @@
 9.1. php artisan make:seeder JobSeeder   
 9.2. php artisan db:seed --class=JobSeeder
 10. php artisan vendor:publish --tag=laravel-pagination //for pagination view 
+
+11. php artisan storage:link
+// Route::get('/linkstorage', function () {
+//     Artisan::call('storage:link');
+// });
+//hit the link to create storage link at live server

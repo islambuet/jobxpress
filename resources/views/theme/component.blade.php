@@ -41,7 +41,7 @@
                       </div>
                 </form>
                 <div class="col-md-6 col-5">
-                    <a href="{{ url('/post-job') }}" class="btn btn-primary float-right">Post a Job</a>
+                    <a href="{{ url('job/new') }}" class="btn btn-primary float-right">Post a Job</a>
                 </div>
                 
             </div>

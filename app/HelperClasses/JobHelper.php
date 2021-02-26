@@ -2,6 +2,8 @@
     namespace App\HelperClasses;
     use App\Models\Configuration;
     use App\Models\JobCategory;
+    use App\Models\JobType;
+    use App\Models\Job;
     use Illuminate\Support\Facades\DB;
     use Carbon\Carbon;
     class JobHelper
@@ -35,6 +37,24 @@
             if($categories)
             {
                 return $categories->toArray();
+            }
+            return array();
+            
+        }
+        public static function getJobTypes($status='Active')
+        {
+            $query=JobType::select('id','name')                
+            ->orderBy('ordering', 'ASC')     
+            ->orderBy('id', 'ASC')     
+            ->where('status','!=','Deleted');  
+            if($status!='All')
+            {
+                $query->where('status','=',$status);                                    
+            }  
+            $types=$query->get();
+            if($types)
+            {
+                return $types->toArray();
             }
             return array();
             
@@ -78,6 +98,14 @@
             }
             return array();
             
+        }
+        public static function createJob($data)
+        {
+            $expireDays=ConfigurationHelper::getJobExpireDays();
+            $data['token']=EncryptDecryptHelper::getJobToken();
+            $data['expired_at']=Carbon::now()->addDays($expireDays);
+            $job=Job::create($data);
+            return $job;
         }
 
         

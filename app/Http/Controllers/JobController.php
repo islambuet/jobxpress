@@ -50,13 +50,13 @@ class JobController extends Controller
             'logo_url' => ['string', 'max:500','url'],
             'position' => ['required', 'string', 'max:255','min:3'],
             'location' => ['required', 'string', 'max:255','min:3'],
-            'description' => ['required', 'string', 'max:255','min:5'],
+            'description' => ['required', 'string', 'min:5'],
             
         ]);
         if ($validator->fails()) {         
             return response()->json(['errorStr' => 'VALIDATION_FAILED','errors' => $validator->errors()], 400);                 
         }
-        $expireDays=ConfigurationHelper::getJobExpireDays();
+        
         $data=array();
         $data['job_category_id']=$request->job_category_id;
         $data['job_type_id']=$request->job_type_id;
@@ -69,10 +69,7 @@ class JobController extends Controller
         }
         $data['location']=$request->location;
         $data['description']=$request->description;
-        $data['token']=EncryptDecryptHelper::getJobToken();
-        $data['expired_at']=Carbon::now()->addDays($expireDays);
-
-        $job=Job::create($data);
+        $job=JobHelper::createJob($data);
 
         response()->json([
             'errorStr'=>'',

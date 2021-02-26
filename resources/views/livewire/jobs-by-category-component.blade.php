@@ -1,7 +1,7 @@
 <div>
     <div class="row">
         <div class="col-12">
-            
+            <span  class="font-weight-bold">{{$category['name']}}</span>
             <span class="float-right"><i class="fe-rss"></i></span>
         </div>        
         <div class="col-12">
