@@ -101,7 +101,7 @@
                 <div class="col-md-6">                    
                     <span class="float-right" style="font-size: 2em">{{$company}}</span>     
                     @if ($temporary_image)
-                    <img class="float-right" src="{{ $picture->temporaryUrl() }}" style="max-width:100px;max-height:100px;">
+                    <img class="float-right rounded-circle" src="{{ $picture->temporaryUrl() }}" style="max-width:80px;max-height:80px;" alt="logo">
                     @endif
                                    
                 </div>

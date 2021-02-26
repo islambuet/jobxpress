@@ -76,4 +76,22 @@ class JobController extends Controller
             'job' => $job->toArray()],201)->send();
         
     }
+    public function getJobById($id,Request $request)
+    {
+        $job=JobHelper::getJobById($id);
+        if($job)
+        {
+            response()->json([
+                'errorStr'=>'',
+                'data' => ['data'=>$job]],201)->send();
+        }
+        else
+        {
+            response()->json([
+                'errorStr'=>'NOT_FOUND',
+                'data' => ['data'=>$job]],404)->send();
+        }
+        
+    }
+    
 }

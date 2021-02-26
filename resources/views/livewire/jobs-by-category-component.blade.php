@@ -17,7 +17,7 @@
                     @foreach ($paginator->items() as $job)
                     <tr>                        
                         <td>{{$job->location}}</td>
-                        <td><a href="{{ url('job/'.$job->id) }}" class="text-primary">{{$job->position}}</a></td>
+                        <td><a href="{{ url('job/details/'.$job->id) }}" class="text-primary">{{$job->position}}</a></td>
                         <td>{{$job->company}}</td>                        
                     </tr>
                     @endforeach

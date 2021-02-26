@@ -21,3 +21,4 @@ Route::get('job-categories', [App\Http\Controllers\JobController::class,'getJobs
 Route::get('jobs/latest', [App\Http\Controllers\JobController::class,'getLastestJobs']);
 Route::get('jobs/{categoryId}', [App\Http\Controllers\JobController::class,'getJobsByCagegoryId'])->where('categoryId', '[0-9]+');
 Route::post('job/create', [App\Http\Controllers\JobController::class,'create']);
+Route::get('job/details/{id}', [App\Http\Controllers\JobController::class,'getJobById'])->where('id', '[0-9]+');

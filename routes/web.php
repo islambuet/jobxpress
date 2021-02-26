@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', App\Http\Livewire\HomeComponent::class);
 Route::get('jobs/{categoryId}', App\Http\Livewire\JobsByCategoryComponent::class)->where('categoryId', '[0-9]+');
 Route::get('job/new', App\Http\Livewire\JobNewComponent::class);
+Route::get('job/details/{id}', App\Http\Livewire\JobDetailsComponent::class)->where('id', '[0-9]+');
 
