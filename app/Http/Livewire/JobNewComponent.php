@@ -56,6 +56,11 @@ class JobNewComponent extends Component
                 $this->location=$job->location;
                 $this->description=$job->description;                
             }
+            config(['app.name'=>" - Update JOb"]);
+        }
+        else
+        {
+            config(['app.name'=>" - Post New JOb"]);
         }
         $this->categories=JobHelper::getJobCategories('Active');
         $this->types=JobHelper::getJobTypes('Active');

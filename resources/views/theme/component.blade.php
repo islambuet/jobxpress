@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="{{ asset('theme/images/logo.jpg') }}">
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>JobXpress{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <!-- Bootstrap CSS CDN -->
@@ -31,7 +31,7 @@
             <!-- LOGO -->
             <h3>JobXpress</h3>
             <div class="row">
-                <form action="{{ url('/search-job') }}" method="POST" class="col-md-6 col-7">
+                <form action="{{ url('/job/search') }}" method="GET" class="col-md-6 col-7">
                     @csrf
                     <div class="input-group">
                         <input type="text" name="serachJob" class="form-control" placeholder="Search..">

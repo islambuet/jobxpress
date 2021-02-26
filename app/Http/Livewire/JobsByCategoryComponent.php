@@ -21,6 +21,7 @@ class JobsByCategoryComponent extends Component
             //return redirect('/');
             return abort(404);
         }   
+        config(['app.name'=>" - ".$category['name']]);
         $this->category=$category;    
     }
     public function render(Request $request)

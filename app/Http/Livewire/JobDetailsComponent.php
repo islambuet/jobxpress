@@ -27,6 +27,7 @@ class JobDetailsComponent extends Component
         $this->position=$job->position;
         $this->location=$job->location;
         $this->description=$job->description;
+        config(['app.name'=>" - ".$job->position]);
     }
     public function render()
     {

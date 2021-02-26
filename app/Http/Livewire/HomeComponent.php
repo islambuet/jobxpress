@@ -8,8 +8,13 @@ use App\HelperClasses\JobHelper;
 
 class HomeComponent extends Component
 {
+    public function mount()
+    {
+        config(['app.name'=>'']);
+    }
     public function render(Request $request)
     {
+        
         $results=JobHelper::getJobCategories('Active');
         $categories=array();
         foreach($results as $result)
