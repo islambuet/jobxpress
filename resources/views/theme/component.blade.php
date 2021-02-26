@@ -50,7 +50,7 @@
         <div id="system_content">
             @if (session()->has('alert_message'))
             <div class="alert alert-{{ session()->has('alert_type')?session('alert_type'):'success'}} alert-dismissible fade show" role="alert">
-                {{ session('alert_message') }}
+                {!! session('alert_message') !!}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
