@@ -19,7 +19,7 @@ class adminMiddleware
     {
        if(Auth::user())
        {
-           if(Auth::user()->is_admin)
+           if(Auth::user()->user_group_id==1)
            {
             return $next($request);
            }

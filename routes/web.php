@@ -19,3 +19,9 @@ Route::get('job/details/{id}', App\Http\Livewire\JobDetailsComponent::class)->wh
 Route::get('job/update/{id}/{token}', App\Http\Livewire\JobNewComponent::class)->where('id', '[0-9]+');
 Route::get('jobs/search', App\Http\Livewire\JobSearchComponent::class);
 
+Route::get('/admin/login',App\Http\Livewire\AdminLoginComponent::class);
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin',App\Http\Livewire\AdminDashboardComponent::class);
+    
+
+});
