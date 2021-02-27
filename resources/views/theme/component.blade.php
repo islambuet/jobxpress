@@ -29,7 +29,7 @@
         
         <header id="system_top_bar" class="d-print-none">
             <!-- LOGO -->
-            <h3>JobXpress</h3>
+            <h3><a href="{{ url('/') }}">JobXpress</a></h3>
             <div class="row">
                 <form action="{{ url('/jobs/search') }}" method="GET" class="col-md-6 col-7">                    
                     <div class="input-group">
