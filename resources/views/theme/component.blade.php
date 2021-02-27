@@ -23,7 +23,8 @@
         <!-- jQuery -->
         <script type="text/javascript" src="{{ asset('theme/js/jquery-3.4.1.min.js') }}"></script>
         
-        
+        <!-- Popper.JS for Bootstrap Dropdown-->
+        <script type="text/javascript" src="{{ asset('theme/js/popper.min.js') }}"></script>
         <!-- Bootstrap JS -->
         <script type="text/javascript" src="{{ asset('theme/js/bootstrap.min.js') }}"></script>
         

@@ -20,6 +20,10 @@ Route::get('job/update/{id}/{token}', App\Http\Livewire\JobNewComponent::class)-
 Route::get('jobs/search', App\Http\Livewire\JobSearchComponent::class);
 
 Route::get('/admin/login',App\Http\Livewire\AdminLoginComponent::class);
+Route::get('user/logout',function () {
+    Auth::logout();
+    return redirect('/'); 
+});
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin',App\Http\Livewire\AdminDashboardComponent::class);
     
