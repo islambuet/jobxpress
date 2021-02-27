@@ -31,3 +31,5 @@
 //     Artisan::call('storage:link');
 // });
 //hit the link to create storage link at live server
+12.api link change: app\Providers\RouteServiceProvider// remove prefix
+ 
