@@ -25,4 +25,6 @@ Route::get('job/details/{id}', [App\Http\Controllers\JobController::class,'getJo
 Route::get('job/update/{id}/{token}', [App\Http\Controllers\JobController::class,'getJobByIdToken'])->where('id', '[0-9]+');
 Route::post('job/update/{id}/{token}', [App\Http\Controllers\JobController::class,'updateJobByIdToken'])->where('id', '[0-9]+');
 
+Route::get('jobs/search', [App\Http\Controllers\JobController::class,'search']);
+
 //Route::get('job/update/{id}/{token}', App\Http\Livewire\JobNewComponent::class)->where('id', '[0-9]+');

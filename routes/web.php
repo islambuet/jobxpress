@@ -17,5 +17,5 @@ Route::get('jobs/{categoryId}', App\Http\Livewire\JobsByCategoryComponent::class
 Route::get('job/new', App\Http\Livewire\JobNewComponent::class);
 Route::get('job/details/{id}', App\Http\Livewire\JobDetailsComponent::class)->where('id', '[0-9]+');
 Route::get('job/update/{id}/{token}', App\Http\Livewire\JobNewComponent::class)->where('id', '[0-9]+');
-Route::get('job/search', App\Http\Livewire\JobSearchComponent::class);
+Route::get('jobs/search', App\Http\Livewire\JobSearchComponent::class);
 

@@ -34,8 +34,8 @@ class JobController extends Controller
     public function getJobsByCagegoryId($categoryId,Request $request)
     {
         $page=$request->page?$request->page:1;
-        $per_page=$request->per_page?$request->per_page:20;
-        $paginator=JobHelper::getJobsByCagegoryId($categoryId,$page,$per_page);
+        $perPage=$request->perPage?$request->perPage:20;
+        $paginator=JobHelper::getJobsByCagegoryId($categoryId,$page,$perPage);
         response()->json([
             'errorStr'=>'',
             'data' => ['total'=>$paginator->total(),'currentPage'=>$paginator->currentPage(),'perPage'=>$paginator->perPage(),'jobs'=>$paginator->items()]],201)->send();
@@ -170,6 +170,27 @@ class JobController extends Controller
                 'data' => ['data'=>$job]],404)->send();
         }
         
+    }
+    public function search(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            
+            //'searchKey' => ['required', 'regex:/^[a-zA-Z0-9\s_-]*$/', 'max:255','min:3'],
+            'searchKey' => ['required', 'max:255','min:2'],
+        ]);
+        if ($validator->fails()) {         
+            return response()->json(['errorStr' => 'INVALID_SEARCH','errors' => $validator->errors()], 400);                 
+        }
+
+        $page=$request->page?$request->page:1;
+        $perPage=$request->perPage?$request->perPage:20;
+        $searchKey=$request->searchKey?$request->searchKey:'';
+
+        $paginator=JobHelper::getJobsBySearch($searchKey,$page,$perPage);
+        response()->json([
+            'errorStr'=>'',
+            'data' => ['total'=>$paginator->total(),'currentPage'=>$paginator->currentPage(),'perPage'=>$paginator->perPage(),'jobs'=>$paginator->items()]],201)->send();
+            
     }
     
 }

@@ -31,10 +31,9 @@
             <!-- LOGO -->
             <h3>JobXpress</h3>
             <div class="row">
-                <form action="{{ url('/job/search') }}" method="GET" class="col-md-6 col-7">
-                    @csrf
+                <form action="{{ url('/jobs/search') }}" method="GET" class="col-md-6 col-7">                    
                     <div class="input-group">
-                        <input type="text" name="serachJob" class="form-control" placeholder="Search..">
+                        <input type="text" name="searchKey" class="form-control" placeholder="Search..">
                         <div class="input-group-append">
                           <button class="input-group-text" type="submit">Go!</button>
                         </div>

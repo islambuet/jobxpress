@@ -27,8 +27,8 @@ class JobsByCategoryComponent extends Component
     public function render(Request $request)
     {
         $page=$request->page?$request->page:1;
-        $per_page=$request->per_page?$request->per_page:20;
-        $paginator=JobHelper::getJobsByCagegoryId($this->categoryId,$page,$per_page);
+        $perPage=$request->perPage?$request->perPage:20;
+        $paginator=JobHelper::getJobsByCagegoryId($this->categoryId,$page,$perPage);
         
         return view('livewire.jobs-by-category-component',['category'=>$this->category,'paginator'=>$paginator])->layout('theme.component');  
     }
