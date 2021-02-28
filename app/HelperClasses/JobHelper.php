@@ -167,6 +167,28 @@
             return array();
             
         }
+        public static function getTopCategories()
+        {
+            $query=DB::table('jobs')
+            ->select('jobs.job_category_id')
+            ->where('jobs.status','=','Active') 
+            ->join('job_categories as jc', 'jc.id', '=', 'jobs.job_category_id')
+            ->addSelect('jc.name as category_name')
+            ->addSelect(DB::raw('count(jobs.id) num_jobs'))
+            ->groupBy('jobs.job_category_id')
+            ->groupBy('jc.name')
+            ->orderBy('num_jobs', 'desc')            
+            ->where('jobs.expired_at','>' ,Carbon::now())                     
+            ->limit(3);
+            $jobs=$query->get();
+            
+            if($jobs)
+            {
+                return $jobs;
+            }
+            return array();
+            
+        }
 
         
     }

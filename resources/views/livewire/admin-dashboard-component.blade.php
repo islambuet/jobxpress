@@ -1,4 +1,4 @@
-<div>
+<div>    
     <div class="row">
         <div class="col-md-4 mb-2">
             <div class="card">
@@ -61,7 +61,7 @@
             <div class="card">
                 <div class="card-body">
                     <strong>TOP CATEGORIES</strong>
-                    <div style="height:200px">
+                    <div id="piechart">
 
                     </div>
                 </div>
@@ -92,4 +92,40 @@
             </table>            
         </div>
     </div>
+    @section('jsInline')
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        $( document ).ready(function() {
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            // Draw the chart and set the chart values
+            function drawChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Category');
+                data.addColumn('number', 'Jobs');
+                /*data.addRows([
+                    
+                    
+                    
+                ]);*/
+                @foreach ($topCategories as $category)
+                    data.addRow(['{{$category->category_name}}',{{$category->num_jobs}}]);
+                @endforeach
+
+            // Optional; add a title and set the width and height of the chart
+            var options = { 
+                'width':'100%', 
+                'height':200,
+                legend: 'top',
+            };
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+            }
+            
+        });
+       
+    </script>
+    @endsection
 </div>
