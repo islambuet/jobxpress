@@ -209,5 +209,58 @@ class JobController extends Controller
             'token' => $jobApply->token],201)->send();
         
     }
+    public function jobApply(Request $request)
+    {
+        $token=$request->token;        
+        $jobApply=JobHelper::getJobApplyByToken($token);
+        if($jobApply)
+        {
+            if($jobApply->applied=="Yes")
+            {
+                return response()->json(['errorStr' => 'VALIDATION_FAILED','errors' => "Already applied."], 400);
+            }
+            if($jobApply->token_expired_at<Carbon::now())
+            {
+                return response()->json(['errorStr' => 'VALIDATION_FAILED','errors' => "Token Expired."], 400);
+            }
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:255'],  
+                'email' => ['required', 'string', 'email', 'max:255'],    
+            ]);
+            if ($validator->fails()) {         
+                return response()->json(['errorStr' => 'VALIDATION_FAILED','errors' => $validator->errors()], 400);                 
+            }
+            $data=array();
+            $data['name']=$request->name;
+            $data['email']=$request->email;
+            if($request->phone)
+            {
+                $data['phone']=$request->phone;                
+            }
+            if($request->employer)
+            {
+                $data['employer']=$request->employer;                
+            }
+            if($request->source)
+            {
+                $data['source']=$request->source;                
+            }
+            if($request->comments)
+            {
+                $data['comments']=$request->source;                
+            }
+            $data['applied']="Yes";
+            $jobApplyUpdated=JobHelper::updateJobApply($jobApply->id,$data);
+            response()->json([
+                'errorStr'=>'',
+                'applyId' => $jobApplyUpdated->id],201)->send();
+        }
+        else
+        {
+            response()->json([
+                'errorStr'=>'NOT_FOUND',
+                'data' => ['data'=>$jobApply]],404)->send();
+        }
+    }
     
 }

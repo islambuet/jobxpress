@@ -220,7 +220,27 @@
             $data['token_expired_at']=Carbon::now()->addMinutes($expireMinutes);            
             $jobApply=JobApply::create($data);
             return $jobApply;
+        }
+        public static function getJobApplyByToken($token)
+        {
+            $query=DB::table('job_applies')
+            ->select('job_applies.id','job_applies.applied','job_applies.token_expired_at')
+            ->where('job_applies.token','=',$token);
+            //may be join with job to check expires
             
+            
+            $result=$query->first();
+            if($result)
+            {
+                return $result;
+            }
+            return array();
+        }
+        public static function updateJobApply($id,$data)
+        {
+            $result=JobApply::find($id);
+            $result->update($data);
+            return $result;
         }
 
         
