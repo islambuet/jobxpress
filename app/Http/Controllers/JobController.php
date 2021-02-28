@@ -225,14 +225,18 @@ class JobController extends Controller
             }
             $validator = Validator::make($request->all(), [
                 'name' => ['required', 'string', 'max:255'],  
-                'email' => ['required', 'string', 'email', 'max:255'],    
+                'email' => ['required', 'string', 'email', 'max:255'],   
+                'resume' => ['required','max:10000', 'mimes:pdf'],  //10mb  
             ]);
             if ($validator->fails()) {         
                 return response()->json(['errorStr' => 'VALIDATION_FAILED','errors' => $validator->errors()], 400);                 
             }
+            
             $data=array();
             $data['name']=$request->name;
             $data['email']=$request->email;
+            $path = $request->file('resume')->store('resumes','public');
+            $data['resume']=$path;
             if($request->phone)
             {
                 $data['phone']=$request->phone;                
@@ -253,7 +257,9 @@ class JobController extends Controller
             $jobApplyUpdated=JobHelper::updateJobApply($jobApply->id,$data);
             response()->json([
                 'errorStr'=>'',
-                'applyId' => $jobApplyUpdated->id],201)->send();
+                'applyId' => $jobApplyUpdated->id,
+                'resume_url'=>asset('storage/'.$jobApplyUpdated->resume)
+            ],201)->send();
         }
         else
         {
