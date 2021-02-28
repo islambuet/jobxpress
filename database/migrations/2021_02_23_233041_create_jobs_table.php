@@ -25,6 +25,7 @@ class CreateJobsTable extends Migration
             $table->text('description');
             $table->string('status',10)->default('Active');   
             $table->string('token',80)->unique();         
+            $table->Integer('visit_counter')->default(0);
             $table->timestamps();
             $table->timestamp('expired_at')->nullable();
             $table->smallInteger('renew_count')->default(0);

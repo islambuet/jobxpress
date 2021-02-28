@@ -189,6 +189,23 @@
             return array();
             
         }
+        public static function getTotalJobs()
+        {
+            $query=DB::table('jobs')
+            ->where('jobs.status','=','Active') 
+            ->addSelect(DB::raw('count(jobs.id) total_jobs'))
+            ->addSelect(DB::raw('SUM(jobs.visit_count) total_visit'))
+            ->where('jobs.expired_at','>' ,Carbon::now());
+            
+            $jobs=$query->first();
+            
+            if($jobs)
+            {
+                return $jobs;
+            }
+            return array();
+            
+        }
 
         
     }

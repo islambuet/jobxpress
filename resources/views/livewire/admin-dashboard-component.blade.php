@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-10">
                             <strong><a href="#">TOTAL JOBS</a></strong>
-                                <div>100</div>
+                                <div>{{$jobsCount->total_jobs}}</div>
                         </div>
                         <div class="col-2">
                             <i style="vertical-align: -.5em" class="fe-gift"></i>
@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="col-10">
                             <strong><a href="#">TOTAL VIEWS</a></strong>
-                                <div>100</div>
+                                <div>{{$jobsCount->total_visit}}</div>
                         </div>
                         <div class="col-2">
                             <i style="vertical-align: -.5em" class="fe-tv"></i>
