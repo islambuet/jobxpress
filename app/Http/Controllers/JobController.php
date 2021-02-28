@@ -192,5 +192,22 @@ class JobController extends Controller
             'data' => ['total'=>$paginator->total(),'currentPage'=>$paginator->currentPage(),'perPage'=>$paginator->perPage(),'jobs'=>$paginator->items()]],201)->send();
             
     }
+    public function getJobApplyToken(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required', 'exists:jobs,id'],
+        ]);
+        if ($validator->fails()) {         
+            return response()->json(['errorStr' => 'VALIDATION_FAILED','errors' => $validator->errors()], 400);                 
+        }
+        
+        $data=array();
+        $data['job_id']=$request->id;        
+        $jobApply=JobHelper::createJobApply($data);
+        response()->json([
+            'errorStr'=>'',
+            'token' => $jobApply->token],201)->send();
+        
+    }
     
 }

@@ -4,6 +4,7 @@
     use App\Models\JobCategory;
     use App\Models\JobType;
     use App\Models\Job;
+    use App\Models\JobApply;
     use Illuminate\Support\Facades\DB;
     use Carbon\Carbon;
     class JobHelper
@@ -211,6 +212,15 @@
             DB::table('jobs')
             ->where('jobs.id','=' ,$id)
             ->increment('visit_count',$count);
+        }
+        public static function createJobApply($data)
+        {
+            $expireMinutes=ConfigurationHelper::getJobApplyExpireMinutes();
+            $data['token']=EncryptDecryptHelper::getJobApplyToken($data['job_id']);
+            $data['token_expired_at']=Carbon::now()->addMinutes($expireMinutes);            
+            $jobApply=JobApply::create($data);
+            return $jobApply;
+            
         }
 
         

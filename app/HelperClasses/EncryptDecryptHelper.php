@@ -23,5 +23,9 @@
         {
             return (time().'_'.Str::random(30));
         }
+        public static function getJobApplyToken($jobId)
+        {
+            return self::getEncrypt($jobId.'_'.time().'_'.Str::random(30));
+        }
     }
     

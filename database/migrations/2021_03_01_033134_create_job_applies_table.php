@@ -18,9 +18,9 @@ class CreateJobAppliesTable extends Migration
             $table->Integer('job_id');
             $table->string('token',80);
             $table->string('applied',3)->default('No');
-            $table->string('name');
-            $table->string('email');
-            $table->string('resume',500);
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('resume',500)->nullable();
             $table->string('phone')->nullable();
             $table->string('employer')->nullable();
             $table->string('source')->nullable();

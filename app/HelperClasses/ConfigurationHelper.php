@@ -27,5 +27,13 @@
             }
             return isset(self::$config['JOB_MAX_REACTIVATION'])?self::$config['JOB_MAX_REACTIVATION']:1;
         }
+        public static function getJobApplyExpireMinutes()
+        {
+            if(!self::$config)
+            {
+                self::loadConfig();                
+            }
+            return isset(self::$config['JOB_APPLY_EXPIRE_MINUTES'])?self::$config['JOB_APPLY_EXPIRE_MINUTES']:5;
+        }
     }
     
