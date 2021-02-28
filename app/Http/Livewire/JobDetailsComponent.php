@@ -22,6 +22,7 @@ class JobDetailsComponent extends Component
         {
             return abort(404);
         }
+        JobHelper::updateJobVisit($id);
         $this->logo_url=$job->logo_url;
         $this->company=$job->company;
         $this->position=$job->position;

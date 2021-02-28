@@ -206,6 +206,12 @@
             return array();
             
         }
+        public static function updateJobVisit($id,$count=1)
+        {
+            DB::table('jobs')
+            ->where('jobs.id','=' ,$id)
+            ->increment('visit_count',$count);
+        }
 
         
     }
