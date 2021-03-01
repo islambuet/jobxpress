@@ -29,3 +29,6 @@ Route::middleware(['admin'])->group(function () {
     
 
 });
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
