@@ -5,6 +5,8 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <div class="dropdown-item">{{Auth::user()->name}}</div>
         <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{url('admin') }}">Admin Dashboard</a>
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Configurations</a>
         <a class="dropdown-item" href="#">Categories</a>
         <a class="dropdown-item" href="#">Jobs</a>
