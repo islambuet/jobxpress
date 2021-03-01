@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-10">
                             <strong><a href="#">TOTAL APPLIED</a></strong>
-                                <div>100</div>
+                                <div>{{$applyCount->total_applied}}</div>
                         </div>
                         <div class="col-2">
                             <i style="vertical-align: -.5em" class="fe-link"></i>

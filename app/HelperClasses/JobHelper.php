@@ -242,6 +242,15 @@
             $result->update($data);
             return $result;
         }
+        public static function getTotalApply()
+        {
+            $query=DB::table('job_applies')
+            ->where('job_applies.applied','=','Yes') 
+            ->addSelect(DB::raw('count(job_applies.id) total_applied'));
+            $result=$query->first();
+            return $result;
+
+        }
 
         
     }

@@ -83,8 +83,11 @@
                 <img src="{{ $picture->temporaryUrl() }}" style="max-width:200px;max-height:200px;">
                 @endif
             </div>
-            <input type="file" class="form-control mt-2" wire:model="picture">
-                  @error('picture') <span class="text-danger">{{ $message }}</span> @enderror
+            <div style="width:200px;margin:auto">
+                <input type="file" class="form-control mt-2" wire:model="picture">
+                @error('picture') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
+            
         </div>
         <div class="col-12">
             <button type="button" class="btn btn-primary" wire:click="showPreview()">Show Preview</button>
